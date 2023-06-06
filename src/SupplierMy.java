@@ -1,4 +1,4 @@
 @FunctionalInterface
-public interface Supplier {
+public interface SupplierMy {
     int getNumber();
 }

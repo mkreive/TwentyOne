@@ -1,10 +1,13 @@
 import java.time.Year;
 import java.util.Random;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class Main {
     public static void main(String[] args) {
 
-        Cat cat = new Cat();
+        Cat cat = new Cat("lala");
         doSomething(cat);
         doSomething(() -> System.out.println("Meow from lambda"));
 
@@ -48,7 +51,7 @@ public class Main {
         System.out.println("_".repeat(50));
 
         Combine combinedNumbers = (x, y) -> x + y;
-        Supplier suppliedNum = () -> new Random().nextInt(1, 101);
+        SupplierMy suppliedNum = () -> new Random().nextInt(1, 101);
         Functioner makeEqual = x -> x % 2 != 0 ? x + 1 : x;
 
         int num1 = suppliedNum.getNumber();
@@ -58,12 +61,35 @@ public class Main {
         int equalizedNum2 = makeEqual.returnNumber(num2);
         System.out.println("After makeEqual() num1=" + equalizedNum1 + ", num2=" + equalizedNum2);
         System.out.println("combinedNumbers()=" + combinedNumbers.combineTwoNums(equalizedNum1, equalizedNum2));
+        System.out.println("_".repeat(50));
+
+        BiConsumer<String, String> biConsumer = (x,y) -> System.out.println(x + " " + y);
+        biConsumer.accept("john", "snow");
+
+        Consumer<String> consumer = System.out::println;
+        consumer.accept("Hello World");
+
+        Supplier<String> phoneCode = () -> "+370";
+        Supplier<String> phone = () -> "644 22887";
+        Supplier<Cat> catMaker = () -> new Cat("Hanna");
+        Cat hannahCat = catMaker.get();
+        consumer.accept(hannahCat.toString());
+        biConsumer.accept(phoneCode.get(), phone.get());
+
+
 
 
 
 
 
     }
+
+
+    static void useBiConsumer(String x, String y) {
+        System.out.println(x.toUpperCase() + " " + y.toUpperCase());
+    }
+
+
 
     static boolean checkClubbing(Clubbing clubbing, int years) {
         return clubbing.check(years);
@@ -77,9 +103,22 @@ public class Main {
 
 
 class Cat implements Printable{
+    private String name;
+
+    public Cat(String name) {
+        this.name = name;
+    }
+
     @Override
     public void printIt() {
         System.out.println("Meow from class");
+    }
+
+    @Override
+    public String toString() {
+        return "Cat{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }
 
