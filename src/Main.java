@@ -1,3 +1,5 @@
+import java.time.Year;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -26,12 +28,27 @@ public class Main {
         System.out.println(guessUser.check(9.9));
         System.out.println("_".repeat(50));
 
+        Clubbing willGoToClub = years -> {
+            int age = Year.now().getValue() - years;
+            if(age >= 18 && age < 80 && age % 2 == 0 && age % 5 == 0) {
+                return true;
+            }
+            return false;
+        };
 
+//        System.out.println(willGoToClub.check(1986));
+//        System.out.println(willGoToClub.check(1983));
 
+        System.out.println(checkClubbing(willGoToClub, 1986));
+        System.out.println(checkClubbing(willGoToClub, 2013));
+        System.out.println(checkClubbing(willGoToClub, 1923));
+        System.out.println(checkClubbing(willGoToClub, 2003));
+        System.out.println(checkClubbing(willGoToClub, 1993));
 
+    }
 
-
-
+    static boolean checkClubbing(Clubbing clubbing, int years) {
+        return clubbing.check(years);
     }
 
     static void doSomething(Printable obj) {
