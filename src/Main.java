@@ -1,4 +1,5 @@
 import java.time.Year;
+import java.util.Random;
 
 public class Main {
     public static void main(String[] args) {
@@ -44,6 +45,23 @@ public class Main {
         System.out.println(checkClubbing(willGoToClub, 1923));
         System.out.println(checkClubbing(willGoToClub, 2003));
         System.out.println(checkClubbing(willGoToClub, 1993));
+        System.out.println("_".repeat(50));
+
+        Combine combinedNumbers = (x, y) -> x + y;
+        Supplier suppliedNum = () -> new Random().nextInt(1, 101);
+        Functioner makeEqual = x -> x % 2 != 0 ? x + 1 : x;
+
+        int num1 = suppliedNum.getNumber();
+        int num2 = suppliedNum.getNumber();
+        System.out.println("Num1=" + num1 + ", num2=" + num2);
+        int equalizedNum1 = makeEqual.returnNumber(num1);
+        int equalizedNum2 = makeEqual.returnNumber(num2);
+        System.out.println("After makeEqual() num1=" + equalizedNum1 + ", num2=" + equalizedNum2);
+        System.out.println("combinedNumbers()=" + combinedNumbers.combineTwoNums(equalizedNum1, equalizedNum2));
+
+
+
+
 
     }
 
